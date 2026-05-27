@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="MSR Transportes de Cargas e Encomendas — Transporte aéreo e terrestre nacional, logística de telecom e medicamentos com autorização ANVISA. Desde 1998, Belém do Pará." />
+<title>MSR Transportes — Conectando o Brasil, entregando confiança</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF6B00;
+    --orange-deep: #E55A00;
+    --red: #CC0000;
+    --red-dark: #8B0000;
+    --black: #0B0B0B;
+    --ink: #16161A;
+    --white: #FFFFFF;
+    --ash: #F6F6F6;
+    --muted: #6B6B72;
+    --line: rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  /* Offset para scroll com navbar fixa */
+  section[id] { scroll-margin-top: 80px; }
+
+  /* Trava scroll quando menu mobile aberto */
+  body.menu-open { overflow: hidden; }
+
+  /* ============ NAVBAR ============ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .nav.scrolled {
+    background: rgba(11,11,11,0.82);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 12px 48px;
+  }
+  .nav__logo { display: flex; align-items: center; gap: 12px; z-index: 201; }
+  .nav__logo img { height: 44px; width: auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,.35)); transition: height .3s; }
+  .nav.scrolled .nav__logo img { height: 36px; }
+
+  /* Links desktop */
+  .nav__links { display: flex; gap: 36px; align-items: center; }
+  .nav__links a {
+    color: #fff; font-weight: 500; font-size: 14.5px; position: relative;
+    text-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .nav__links a::after {
+    content: ""; position: absolute; left: 0; bottom: -6px; width: 0; height: 2px;
+    background: var(--orange); transition: width .3s;
+  }
+  .nav__links a:hover::after { width: 100%; }
+
+  /* CTA desktop */
+  .nav__cta {
+    background: var(--orange); color: #fff; padding: 10px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; box-shadow: 0 8px 22px rgba(255,107,0,.45);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(255,107,0,.55); }
+
+  /* Botão hamburger */
+  .nav__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px; height: 44px;
+    padding: 10px;
+    cursor: pointer;
+    background: none; border: none;
+    z-index: 201; flex-shrink: 0;
+  }
+  .nav__hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: #fff; border-radius: 2px;
+    transition: transform .3s ease, opacity .3s ease;
+    transform-origin: center;
+  }
+  .nav__hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav__hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav__hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  /* Overlay escuro atrás do menu mobile */
+  .nav__overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 198;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s;
+  }
+  .nav__overlay.open { opacity: 1; pointer-events: auto; }
+
+  /* CTA dentro do menu mobile (invisível em desktop) */
+  .nav__mobile-cta { display: none; }
+
+  @media (max-width: 860px) {
+    .nav { padding: 12px 20px; }
+    .nav.scrolled { padding: 12px 20px; }
+    .nav__hamburger { display: flex; }
+    .nav__overlay { display: block; }
+    .nav__cta { display: none; }
+
+    /* Menu drawer lateral */
+    .nav__links {
+      position: fixed; top: 0; right: -100%;
+      width: min(320px, 85vw); height: 100vh;
+      background: rgba(11,11,11,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      padding: 90px 28px 48px;
+      transition: right .35s cubic-bezier(.2,.7,.2,1);
+      z-index: 199;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .nav__links.open { right: 0; }
+    .nav__links a {
+      font-size: 20px;
+      padding: 18px 0;
+      width: 100%;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: block;
+      text-shadow: none;
+    }
+    .nav__links a::after { display: none; }
+
+    .nav__mobile-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+      width: 100%;
+      background: var(--orange); color: #fff;
+      padding: 16px 28px; border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 16px;
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(255,107,0,.45);
+    }
+    .nav__mobile-cta::after { display: none !important; }
+    .nav__mobile-cta:hover { background: var(--orange-deep); }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative; min-height: 100svh; width: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; text-align: center; overflow: hidden;
+    isolation: isolate;
+  }
+  .hero__bg {
+    position: absolute; inset: 0; z-index: -2;
+    background:
+      radial-gradient(80% 60% at 20% 20%, #FF8A2B 0%, transparent 60%),
+      radial-gradient(80% 60% at 80% 80%, #CC0000 0%, transparent 60%),
+      linear-gradient(135deg, #FF6B00 0%, #E04500 45%, #8B0000 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 16s ease-in-out infinite;
+  }
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%, 100% 50%, 0% 0%; }
+    50%     { background-position: 100% 50%, 0% 50%, 100% 100%; }
+  }
+  .hero__canvas {
+    position: absolute; inset: 0; z-index: -1; opacity: .55;
+    pointer-events: none;
+  }
+  .hero__vignette {
+    position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(60% 80% at 50% 50%, transparent 0%, rgba(0,0,0,.55) 100%);
+  }
+  .hero__inner {
+    max-width: 980px; padding: 140px 32px 90px; z-index: 1;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .hero__logo-img {
+    height: 120px; width: auto;
+    margin-bottom: 36px;
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,.45));
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-10px); }
+  }
+  .hero__eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 8px 18px; border-radius: 999px;
+    background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.22);
+    margin-bottom: 24px;
+  }
+  .hero__eyebrow .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+    box-shadow: 0 0 12px #4ade80;
+    animation: blink 2s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .hero h1 {
+    font-size: clamp(34px, 6.4vw, 84px);
+    font-weight: 900;
+    margin-bottom: 22px;
+    text-shadow: 0 4px 30px rgba(0,0,0,.4);
+  }
+  .hero h1 .accent { color: #FFD9B8; display: inline-block; position: relative; }
+  .hero h1 .accent::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 8px;
+    background: rgba(255,255,255,0.18); border-radius: 4px; z-index: -1;
+  }
+  .hero p.lead {
+    font-size: clamp(15px, 1.5vw, 20px);
+    max-width: 680px; margin: 0 auto 40px;
+    color: rgba(255,255,255,0.92);
+    font-weight: 400;
+  }
+  .hero__cta-group { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px;
+    padding: 18px 36px; border-radius: 999px; cursor: pointer; border: none;
+    transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, background .25s;
+    letter-spacing: 0.02em; -webkit-tap-highlight-color: transparent;
+  }
+  .btn--primary {
+    background: #fff; color: var(--red);
+    box-shadow: 0 18px 40px rgba(0,0,0,.25);
+    position: relative; overflow: hidden;
+  }
+  .btn--primary::before {
+    content: ""; position: absolute; inset: -4px; border-radius: 999px;
+    background: radial-gradient(circle, rgba(255,255,255,.5) 0%, transparent 70%);
+    animation: pulseRing 2.4s ease-out infinite;
+    z-index: -1;
+  }
+  @keyframes pulseRing {
+    0% { transform: scale(.95); opacity: .7; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+  .btn--primary:hover { transform: translateY(-3px); box-shadow: 0 22px 48px rgba(0,0,0,.32); }
+  .btn--ghost {
+    background: rgba(255,255,255,0.08); color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.45);
+    backdrop-filter: blur(8px);
+  }
+  .btn--ghost:hover { background: rgba(255,255,255,0.18); transform: translateY(-3px); }
+  .btn .arrow { transition: transform .25s; display: inline-block; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Hero mobile */
+  @media (max-width: 640px) {
+    .hero__inner { padding: 108px 20px 96px; }
+    .hero__logo-img { height: 80px; margin-bottom: 24px; }
+    .hero__eyebrow { font-size: 11px; letter-spacing: 0.13em; padding: 7px 14px; }
+    .hero p.lead { margin-bottom: 32px; }
+    .hero__cta-group { flex-direction: column; align-items: stretch; width: 100%; max-width: 360px; }
+    .hero__cta-group .btn { justify-content: center; }
+  }
+
+  /* ============ SECTION COMMON ============ */
+  section { position: relative; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 110px 32px; }
+  .eyebrow {
+    display: inline-block; font-weight: 700; font-size: 12px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 18px;
+    position: relative; padding-left: 36px;
+  }
+  .eyebrow::before {
+    content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 26px; height: 2px; background: var(--orange);
+  }
+  .section-title {
+    font-size: clamp(30px, 4vw, 52px);
+    margin-bottom: 22px;
+    text-wrap: balance;
+  }
+  .section-lead { font-size: 17px; color: var(--muted); max-width: 620px; line-height: 1.7; }
+
+  /* fade-in observer */
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: .1s; }
+  .reveal.delay-2 { transition-delay: .2s; }
+  .reveal.delay-3 { transition-delay: .3s; }
+  .reveal.delay-4 { transition-delay: .4s; }
+
+  @media (max-width: 768px) { .container { padding: 72px 24px; } }
+  @media (max-width: 480px) { .container { padding: 56px 16px; } }
+
+  /* ============ ABOUT ============ */
+  .about { background: var(--black); color: #fff; overflow: hidden; }
+  .about::before {
+    content: ""; position: absolute; top: -200px; left: -200px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,107,0,.18), transparent 70%);
+    pointer-events: none;
+  }
+  .about .container { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+  .about h2 { color: #fff; }
+  .about .section-lead { color: rgba(255,255,255,.72); max-width: 100%; }
+  .about__text p + p { margin-top: 18px; }
+  .about__badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 18px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    font-size: 13.5px; font-weight: 500;
+  }
+  .badge .icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--orange); }
+  .about__img {
+    position: relative; border-radius: 24px; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,.5);
+    aspect-ratio: 5/4;
+  }
+  .about__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .2s linear; }
+  .about__img::after {
+    content: "DESDE 1998"; position: absolute; bottom: 24px; left: 24px;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px;
+    letter-spacing: 0.25em; color: #fff;
+    background: var(--orange); padding: 10px 18px; border-radius: 999px;
+  }
+  @media (max-width: 900px) {
+    .about .container { grid-template-columns: 1fr; gap: 40px; }
+    .about__img { aspect-ratio: 16/9; max-height: 380px; }
+    .about__img img { transform: none !important; }
+  }
+  @media (max-width: 480px) {
+    .badge { font-size: 12px; padding: 8px 14px; }
+    .about__badges { gap: 8px; }
+    .about__img { aspect-ratio: 4/3; max-height: 260px; }
+  }
+
+  /* ============ SERVICES ============ */
+  .services { background: var(--white); }
+  .services__head { max-width: 720px; margin-bottom: 56px; }
+  .services__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .service-card {
+    background: #fff; padding: 36px 30px;
+    border: 1px solid #ECECEC; border-radius: 18px;
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ""; position: absolute; inset: 0; opacity: 0;
+    background: linear-gradient(135deg, rgba(255,107,0,.04), rgba(204,0,0,.04));
+    transition: opacity .35s; pointer-events: none;
+  }
+  .service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 28px 60px rgba(255,107,0,.18), 0 6px 16px rgba(0,0,0,.06);
+    border-color: rgba(255,107,0,.35);
+  }
+  .service-card:hover::before { opacity: 1; }
+  .service-card__icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: linear-gradient(135deg, #FFF1E5, #FFE0CC);
+    color: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+    transition: transform .4s cubic-bezier(.2,.7,.2,1), background .4s, color .4s;
+  }
+  .service-card:hover .service-card__icon {
+    transform: rotate(-8deg) scale(1.1);
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    color: #fff;
+  }
+  .service-card__icon svg { width: 28px; height: 28px; }
+  .service-card h3 { font-size: 18px; margin-bottom: 10px; line-height: 1.3; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+  .service-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 580px) {
+    .services__grid { grid-template-columns: 1fr; gap: 12px; }
+    .service-card { padding: 28px 22px; }
+  }
+
+  /* ============ COVERAGE ============ */
+  .coverage { background: linear-gradient(135deg, #FF6B00, #E04500); color: #fff; overflow: hidden; }
+  .coverage::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 15% 30%, rgba(255,255,255,.18), transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(204,0,0,.35), transparent 50%);
+    pointer-events: none;
+  }
+  .coverage .container { display: grid; grid-template-columns: 1fr 1.05fr; gap: 60px; align-items: center; }
+  .coverage h2 { color: #fff; font-size: clamp(30px, 4.8vw, 64px); }
+  .coverage .eyebrow { color: #fff; }
+  .coverage .eyebrow::before { background: #fff; }
+  .coverage__text p { color: rgba(255,255,255,.92); font-size: 17px; line-height: 1.7; }
+  .coverage__stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    margin-top: 38px;
+  }
+  .coverage__stat {
+    background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 18px 20px; border-radius: 14px;
+  }
+  .coverage__stat .k { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 28px; line-height: 1; }
+  .coverage__stat .l { font-size: 13px; opacity: .85; margin-top: 6px; }
+  .coverage__img {
+    position: relative; border-radius: 24px; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,.35);
+    aspect-ratio: 1/1; background: #fff;
+  }
+  .coverage__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
+  .coverage__img:hover img { transform: scale(1.04); }
+  .coverage__img::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.35) 100%);
+    pointer-events: none;
+  }
+  .coverage__pin {
+    position: absolute; bottom: 20px; left: 20px;
+    background: rgba(0,0,0,.55); backdrop-filter: blur(10px);
+    color: #fff; padding: 12px 18px; border-radius: 12px;
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 13px;
+  }
+  .coverage__pin .pulse {
+    width: 12px; height: 12px; border-radius: 50%; background: var(--orange);
+    position: relative; flex-shrink: 0;
+  }
+  .coverage__pin .pulse::after {
+    content: ""; position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid var(--orange); animation: pulseRing 2s infinite;
+  }
+  @media (max-width: 900px) {
+    .coverage .container { grid-template-columns: 1fr; gap: 40px; }
+    .coverage__img { aspect-ratio: 4/3; max-height: 420px; }
+  }
+  @media (max-width: 480px) {
+    .coverage__stat { padding: 14px 16px; }
+    .coverage__stat .k { font-size: 22px; }
+    .coverage__stat .l { font-size: 12px; }
+    .coverage__img { aspect-ratio: 3/2; max-height: 280px; }
+  }
+
+  /* ============ PARTNERS ============ */
+  .partners { background: var(--ash); padding: 80px 0; overflow: hidden; }
+  .partners__head { text-align: center; margin-bottom: 48px; padding: 0 32px; }
+  .partners__eyebrow {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 16px;
+  }
+  .partners__eyebrow .line { display: inline-block; width: 26px; height: 2px; background: var(--orange); border-radius: 2px; flex-shrink: 0; }
+  .partners__head h2 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 10px; }
+  .partners__head p { color: var(--muted); font-size: 15px; }
+  .marquee {
+    display: flex; overflow: hidden; position: relative;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee__track {
+    display: flex; padding: 10px 0;
+    animation: marquee 28s linear infinite;
+    flex-shrink: 0; will-change: transform;
+  }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .marquee:hover .marquee__track { animation-play-state: paused; }
+  /* margin-right em vez de gap garante loop perfeito com translateX(-50%) */
+  .partner {
+    flex-shrink: 0; width: 200px; height: 100px;
+    background: #fff; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid #E8E8E8;
+    transition: transform .3s, box-shadow .3s;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    letter-spacing: 0.04em; font-size: 20px;
+    color: #2a2a2a; position: relative;
+    margin-right: 20px;
+  }
+  .partner:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(0,0,0,.08); }
+  .partner .tag {
+    position: absolute; top: 10px; right: 12px;
+    font-size: 9px; font-weight: 600; letter-spacing: 0.18em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .partner .sub { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 10px; color: var(--muted); margin-top: 4px; letter-spacing: 0.1em; }
+  .partner__col { display: flex; flex-direction: column; align-items: center; }
+
+  /* ============ NUMBERS ============ */
+  .numbers { background: var(--white); border-top: 1px solid #EFEFEF; border-bottom: 1px solid #EFEFEF; }
+  .numbers .container { padding: 90px 32px; }
+  .numbers__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .number { text-align: center; position: relative; padding: 20px 12px; }
+  .number:not(:last-child)::after {
+    content: ""; position: absolute; right: 0; top: 22%; bottom: 22%;
+    width: 1px; background: #EAEAEA;
+  }
+  .number__k {
+    font-family: 'Montserrat', sans-serif; font-weight: 900;
+    font-size: clamp(40px, 5vw, 76px);
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .number__k .suffix { font-size: 0.5em; vertical-align: super; margin-left: 2px; }
+  .number__l { margin-top: 14px; font-size: 13px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; }
+
+  @media (max-width: 860px) {
+    .numbers__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .number::after { display: none !important; }
+    .number { background: var(--ash); border-radius: 16px; padding: 28px 16px; }
+    .numbers .container { padding: 72px 24px; }
+  }
+  @media (max-width: 480px) {
+    .numbers .container { padding: 56px 16px; }
+    .numbers__grid { gap: 8px; }
+    .number__l { font-size: 12px; }
+  }
+
+  /* ============ CTA FINAL ============ */
+  .cta-final {
+    background:
+      radial-gradient(60% 80% at 20% 20%, rgba(255,107,0,.45) 0%, transparent 60%),
+      linear-gradient(135deg, #8B0000 0%, #4A0000 100%);
+    color: #fff; overflow: hidden; position: relative;
+  }
+  .cta-final::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-final .container { text-align: center; padding: 120px 32px; position: relative; z-index: 1; }
+  /* Label da seção CTA — centralizado sem linha à esquerda */
+  .cta-label {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-weight: 700; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65); margin-bottom: 20px;
+  }
+  .cta-label .line { display: inline-block; width: 26px; height: 2px; background: rgba(255,255,255,0.4); border-radius: 2px; flex-shrink: 0; }
+  .cta-final h2 { font-size: clamp(30px, 5vw, 64px); margin-bottom: 24px; text-wrap: balance; }
+  .cta-final p { color: rgba(255,255,255,.85); font-size: 18px; max-width: 580px; margin: 0 auto 44px; }
+  .cta-final__buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .cta-final .btn--phone {
+    background: #fff; color: var(--red); font-size: 16px; padding: 20px 32px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.2);
+  }
+  .cta-final .btn--phone:hover { transform: translateY(-3px); box-shadow: 0 22px 48px rgba(0,0,0,.3); }
+  .cta-final .btn--whats {
+    background: #25D366; color: #fff; font-size: 16px; padding: 20px 32px;
+    box-shadow: 0 18px 40px rgba(37,211,102,.45);
+  }
+  .cta-final .btn--whats:hover { transform: translateY(-3px); box-shadow: 0 22px 48px rgba(37,211,102,.6); }
+
+  @media (max-width: 540px) {
+    .cta-final .container { padding: 72px 20px; }
+    .cta-final p { font-size: 16px; }
+    .cta-final__buttons { flex-direction: column; align-items: center; }
+    .cta-final__buttons .btn { width: 100%; max-width: 340px; justify-content: center; }
+  }
+
+  /* ============ FOOTER ============ */
+  footer { background: var(--black); color: rgba(255,255,255,.6); padding: 70px 32px 32px; }
+  .footer__top {
+    max-width: 1240px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px;
+    padding-bottom: 48px; border-bottom: 1px solid var(--line);
+  }
+  .footer__brand .brand-logo {
+    background: #fff; padding: 14px 20px; border-radius: 12px;
+    height: 78px; width: auto; margin-bottom: 18px; object-fit: contain;
+  }
+  .footer__brand p { font-size: 14px; line-height: 1.7; max-width: 320px; }
+  .footer__col h4 {
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px;
+    color: #fff; text-transform: uppercase; letter-spacing: 0.18em;
+    margin-bottom: 18px;
+  }
+  .footer__col ul { list-style: none; }
+  .footer__col li { margin-bottom: 10px; font-size: 14px; }
+  .footer__col li a:hover { color: var(--orange); transition: color .2s; }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; line-height: 1.5;
+  }
+  .contact-item + .contact-item { margin-top: 10px; }
+  .contact-item svg { width: 16px; height: 16px; color: var(--orange); flex-shrink: 0; margin-top: 3px; }
+  .footer__bottom {
+    max-width: 1240px; margin: 28px auto 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px; flex-wrap: wrap; gap: 16px;
+  }
+  .anvisa-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,.7); font-size: 12px;
+  }
+  .anvisa-chip .check { color: var(--orange); font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .footer__top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer__brand { grid-column: 1 / -1; }
+    .footer__brand p { max-width: 100%; }
+  }
+  @media (max-width: 540px) {
+    footer { padding: 52px 20px 28px; }
+    .footer__top { grid-template-columns: 1fr; gap: 28px; }
+    .footer__brand { grid-column: auto; }
+    .footer__bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+
+  /* ============ REDUCED MOTION ============ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="nav" id="nav">
+  <a class="nav__logo" href="#hero" aria-label="MSR Transportes — início">
+    <img src="assets/logo.png" alt="MSR Transportes" />
+  </a>
+  <div class="nav__links" id="mobileMenu" role="navigation" aria-label="Menu principal">
+    <a href="#about">Sobre</a>
+    <a href="#services">Serviços</a>
+    <a href="#coverage">Cobertura</a>
+    <a href="#partners">Parceiros</a>
+    <a href="#contact">Contato</a>
+    <a href="#contact" class="nav__mobile-cta">Solicitar Orçamento</a>
+  </div>
+  <a href="#contact" class="nav__cta">Orçamento</a>
+  <button class="nav__hamburger" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+<div class="nav__overlay" id="navOverlay" aria-hidden="true"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero__bg"></div>
+  <canvas class="hero__canvas" id="heroCanvas"></canvas>
+  <div class="hero__vignette"></div>
+  <div class="hero__inner">
+    <img class="hero__logo-img" src="assets/logo.png" alt="MSR Transportes de Cargas e Encomendas Ltda" />
+    <div class="hero__eyebrow">
+      <span class="dot"></span>
+      <span>Operando há 27 anos · Belém / PA</span>
+    </div>
+    <h1>Conectando o Brasil,<br/><span class="accent">entregando confiança</span>.</h1>
+    <p class="lead">
+      Transporte aéreo e terrestre nacional, logística de telecom e medicamentos
+      com autorização ANVISA. Mais de duas décadas movendo o que importa para sua operação.
+    </p>
+    <div class="hero__cta-group">
+      <a href="#contact" class="btn btn--primary">
+        Solicite um orçamento <span class="arrow">→</span>
+      </a>
+      <a href="#services" class="btn btn--ghost">
+        Conheça os serviços
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about__text reveal">
+      <span class="eyebrow">A empresa</span>
+      <h2 class="section-title">Tradição paraense que<br/>movimenta o Brasil inteiro.</h2>
+      <p class="section-lead">
+        Fundada em <strong style="color:#fff">1998 em Belém do Pará</strong>, a MSR é especializada em
+        transporte aéreo e terrestre em âmbito nacional, com forte atuação em
+        logística de telecomunicações e transporte de medicamentos.
+      </p>
+      <p class="section-lead" style="margin-top:18px">
+        Combinamos a agilidade da malha aérea brasileira com o conhecimento
+        rodoviário regional, oferecendo soluções fim-a-fim para indústrias,
+        operadoras e e-commerce em todo território nacional.
+      </p>
+      <div class="about__badges">
+        <span class="badge">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+          Autorização ANVISA
+        </span>
+        <span class="badge">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-9 5-9-5"/><path d="M3.27 8.73 12 14l8.73-5.27"/><path d="M12 3 3 8l9 5 9-5-9-5Z"/></svg>
+          Transporte aéreo nacional
+        </span>
+        <span class="badge">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h2v-6l2-4h7l3 4h4v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+          Frota rodoviária
+        </span>
+        <span class="badge">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          Logística de telecom
+        </span>
+      </div>
+    </div>
+    <div class="about__img reveal delay-2" id="aboutImg">
+      <img src="assets/carro.jpg" alt="Veículo MSR Transportes" />
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services__head reveal">
+      <span class="eyebrow">O que entregamos</span>
+      <h2 class="section-title">Soluções de logística<br/>sob medida.</h2>
+      <p class="section-lead">
+        Da retirada ao destino final — em terra ou no ar. Estruturamos a operação
+        ideal para o seu volume, prazo e tipo de carga.
+      </p>
+    </div>
+    <div class="services__grid">
+
+      <article class="service-card reveal">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-9 5-9-5"/><path d="M3.27 8.73 12 14l8.73-5.27"/><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M19 15v3a2 2 0 0 1-2 2"/></svg>
+        </div>
+        <h3>Transporte Aéreo Nacional</h3>
+        <p>Conexões em toda a malha aérea do país com prazos otimizados e rastreio ponto a ponto.</p>
+      </article>
+
+      <article class="service-card reveal delay-1">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h2v-6l2-4h7l3 4h4v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+        </div>
+        <h3>Transporte Rodoviário Regional</h3>
+        <p>Frota própria atendendo capitais e cidades do interior com agilidade no Norte e Nordeste.</p>
+      </article>
+
+      <article class="service-card reveal delay-2">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 12h18M9 6v12M15 6v12"/></svg>
+        </div>
+        <h3>Carga Fracionada</h3>
+        <p>Compartilhe espaço de transporte e pague apenas pelo volume da sua mercadoria — sem caminhão dedicado.</p>
+      </article>
+
+      <article class="service-card reveal delay-3">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6l3 4 3-4h6"/><path d="M3 17h6l3-4 3 4h6"/><path d="M12 4v16"/></svg>
+        </div>
+        <h3>Cross Docking</h3>
+        <p>Transbordo direto entre veículos sem armazenagem prolongada, acelerando a chegada ao destino.</p>
+      </article>
+
+      <article class="service-card reveal delay-1">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 12 4l9 6v10H3V10Z"/><path d="M9 20v-6h6v6"/></svg>
+        </div>
+        <h3>Armazenagem</h3>
+        <p>Espaço seguro, controle de estoque e operação assistida — pronto para integrar ao seu fluxo.</p>
+      </article>
+
+      <article class="service-card reveal delay-2">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V8l8-4 8 4v12"/><path d="M9 20v-6h6v6"/></svg>
+        </div>
+        <h3>Retirada em Portos</h3>
+        <p>Coleta de cargas em portos brasileiros (exceto containers), com documentação acompanhada.</p>
+      </article>
+
+      <article class="service-card reveal delay-3">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h13l3 4v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M3 7v10h2"/></svg>
+        </div>
+        <h3>Soluções para E-commerce</h3>
+        <p>Última milha, gestão de SKUs e integração com marketplaces para entregas regionais ágeis.</p>
+      </article>
+
+      <article class="service-card reveal delay-4">
+        <div class="service-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v4M14 2v4M5 8h14l-1 12H6L5 8Z"/><path d="M9 14h6M9 17h6"/></svg>
+        </div>
+        <h3>Transporte de Medicamentos</h3>
+        <p>Logística farmacêutica com autorização ANVISA, atendendo aos protocolos sanitários nacionais.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ COVERAGE ============ -->
+<section class="coverage" id="coverage">
+  <div class="container">
+    <div class="coverage__text reveal">
+      <span class="eyebrow">Cobertura nacional</span>
+      <h2 class="section-title">Da Amazônia ao<br/>Sul do país.</h2>
+      <p>
+        Matriz em <strong>Belém do Pará</strong>, operando em todo o território brasileiro
+        através de uma rede integrada de transporte aéreo e parceiros rodoviários
+        estratégicos em cada região.
+      </p>
+      <div class="coverage__stats">
+        <div class="coverage__stat">
+          <div class="k">27</div>
+          <div class="l">Estados atendidos</div>
+        </div>
+        <div class="coverage__stat">
+          <div class="k">5</div>
+          <div class="l">Regiões cobertas</div>
+        </div>
+        <div class="coverage__stat">
+          <div class="k">24/7</div>
+          <div class="l">Suporte operacional</div>
+        </div>
+        <div class="coverage__stat">
+          <div class="k">100%</div>
+          <div class="l">Carga rastreada</div>
+        </div>
+      </div>
+    </div>
+    <div class="coverage__img reveal delay-2">
+      <img src="assets/matriz.png" alt="Mapa do Brasil — atuação MSR Transportes com matriz em Belém do Pará" />
+      <div class="coverage__pin">
+        <span class="pulse"></span>
+        Matriz Belém · Pará
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNERS ============ -->
+<section class="partners" id="partners">
+  <div class="partners__head reveal">
+    <div class="partners__eyebrow">
+      <span class="line"></span>
+      Quem está conosco
+      <span class="line"></span>
+    </div>
+    <h2>Parcerias que entregam.</h2>
+    <p>Operadores aéreos, rodoviários e transportadoras especializadas em todo o Brasil.</p>
+  </div>
+  <div class="marquee">
+    <div class="marquee__track" id="marqueeTrack"></div>
+  </div>
+</section>
+
+<!-- ============ NUMBERS ============ -->
+<section class="numbers" id="numbers">
+  <div class="container">
+    <div class="numbers__grid">
+      <div class="number reveal">
+        <div class="number__k"><span class="count" data-target="27">0</span><span class="suffix">anos</span></div>
+        <div class="number__l">No mercado</div>
+      </div>
+      <div class="number reveal delay-1">
+        <div class="number__k"><span class="count" data-target="27">0</span></div>
+        <div class="number__l">Estados atendidos</div>
+      </div>
+      <div class="number reveal delay-2">
+        <div class="number__k"><span class="count" data-target="100">0</span><span class="suffix">%</span></div>
+        <div class="number__l">Carga rastreada</div>
+      </div>
+      <div class="number reveal delay-3">
+        <div class="number__k">ANVISA</div>
+        <div class="number__l">Autorização ativa</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="cta-final" id="contact">
+  <div class="container">
+    <div class="cta-label reveal">
+      <span class="line"></span>
+      Fale com a MSR
+      <span class="line"></span>
+    </div>
+    <h2 class="reveal">Pronto para mover<br/>a sua operação?</h2>
+    <p class="reveal delay-1">
+      Solicite uma cotação direta com nosso time comercial.
+      Respondemos com prazo, rota e valor em até 24 horas úteis.
+    </p>
+    <div class="cta-final__buttons reveal delay-2">
+      <a href="tel:+559132363888" class="btn btn--phone">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>
+        (91) 3236-3888
+      </a>
+      <a href="https://wa.me/559132363888" class="btn btn--whats" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 1.5C6.159 1.5 1.386 6.273 1.383 12.147c-.001 1.88.491 3.716 1.428 5.329L1.5 22.5l5.168-1.356a10.585 10.585 0 0 0 5.36 1.367h.005c5.87 0 10.642-4.773 10.645-10.648.002-2.844-1.104-5.517-3.115-7.53A10.588 10.588 0 0 0 12.031 1.5Zm0 19.435h-.004a8.79 8.79 0 0 1-4.481-1.226l-.321-.191-3.329.873.888-3.244-.21-.333a8.807 8.807 0 0 1-1.348-4.685c.002-4.864 3.961-8.823 8.829-8.823a8.772 8.772 0 0 1 6.239 2.585 8.78 8.78 0 0 1 2.581 6.243c-.003 4.864-3.961 8.801-8.844 8.801Zm4.844-6.598c-.265-.133-1.57-.775-1.814-.863-.243-.088-.42-.133-.597.133-.177.265-.685.863-.839 1.04-.155.177-.31.199-.574.066-.265-.133-1.118-.412-2.13-1.314-.787-.702-1.318-1.568-1.473-1.833-.154-.265-.016-.408.116-.54.119-.118.265-.309.398-.463.133-.155.177-.265.265-.442.088-.177.044-.332-.022-.465-.066-.133-.597-1.438-.818-1.968-.215-.517-.434-.447-.597-.456l-.51-.009c-.177 0-.464.066-.707.332-.243.265-.928.908-.928 2.213s.95 2.568 1.084 2.745c.132.177 1.87 2.856 4.53 4.003.634.274 1.129.437 1.514.559.636.202 1.215.174 1.672.105.51-.076 1.57-.642 1.792-1.261.221-.62.221-1.15.154-1.261-.065-.11-.242-.177-.507-.31Z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer__top">
+    <div class="footer__brand">
+      <img class="brand-logo" src="assets/logo.png" alt="MSR Transportes" />
+      <p>Transportes de Cargas e Encomendas Ltda. Tradição paraense em logística desde 1998.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#about">Sobre nós</a></li>
+        <li><a href="#services">Serviços</a></li>
+        <li><a href="#coverage">Cobertura</a></li>
+        <li><a href="#partners">Parceiros</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Serviços</h4>
+      <ul>
+        <li>Transporte aéreo nacional</li>
+        <li>Rodoviário regional</li>
+        <li>Carga fracionada</li>
+        <li>Armazenagem</li>
+        <li>E-commerce</li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contato</h4>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Belém — Pará, Brasil</span>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>
+        <a href="tel:+559132363888">(91) 3236-3888</a>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        <a href="mailto:contato@msrtransportes.com.br">contato@msrtransportes.com.br</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div>© 1998–2026 MSR Transportes de Cargas e Encomendas Ltda. Todos os direitos reservados.</div>
+    <div class="anvisa-chip"><span class="check">✓</span> Autorização ANVISA ativa</div>
+  </div>
+</footer>
+
+<script>
+/* ============ HELPERS ============ */
+const isMobile = () => window.innerWidth < 768;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ NAVBAR SCROLL ============ */
+const nav = document.getElementById('nav');
+const onScroll = () => {
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+};
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ============ MOBILE MENU ============ */
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const navOverlay = document.getElementById('navOverlay');
+
+function setMenu(open) {
+  menuBtn.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  mobileMenu.classList.toggle('open', open);
+  navOverlay.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+}
+
+menuBtn.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('open')));
+navOverlay.addEventListener('click', () => setMenu(false));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+/* ============ REVEAL OBSERVER ============ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ============ COUNTER ANIMATION ============ */
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = +el.dataset.target;
+    const duration = 1600;
+    const start = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    const tick = now => {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = Math.round(ease(p) * target);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    countObserver.unobserve(el);
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.count').forEach(el => countObserver.observe(el));
+
+/* ============ PARALLAX (apenas desktop, sem reduced motion) ============ */
+const aboutImg = document.querySelector('#aboutImg img');
+if (aboutImg && !prefersReducedMotion) {
+  let ticking = false;
+  const updateParallax = () => {
+    if (isMobile()) { aboutImg.style.transform = ''; ticking = false; return; }
+    const rect = aboutImg.getBoundingClientRect();
+    const vh = window.innerHeight;
+    if (rect.bottom > 0 && rect.top < vh) {
+      const progress = (vh - rect.top) / (vh + rect.height);
+      const translate = (progress - 0.5) * 60;
+      aboutImg.style.transform = `translateY(${translate}px) scale(1.15)`;
+    }
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+  }, { passive: true });
+  updateParallax();
+}
+
+/* ============ HERO CANVAS ============ */
+(() => {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr;
+  const NUM = isMobile() ? 30 : 70;
+  const DIST = isMobile() ? 100 : 130;
+  const points = [];
+
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  for (let i = 0; i < NUM; i++) {
+    points.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.6,
+      pulse: Math.random() * Math.PI * 2
+    });
+  }
+
+  const draw = () => {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < points.length; i++) {
+      const p = points[i];
+      for (let j = i + 1; j < points.length; j++) {
+        const q = points[j];
+        const dx = p.x - q.x, dy = p.y - q.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < DIST) {
+          ctx.strokeStyle = `rgba(255,220,180,${(1 - dist / DIST) * 0.35})`;
+          ctx.lineWidth = 0.7;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+        }
+      }
+    }
+    points.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      p.pulse += 0.04;
+      const glow = (Math.sin(p.pulse) + 1) * 0.5;
+      const r = p.r * (1 + glow * 0.6);
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(255,235,200,${0.55 + glow * 0.45})`;
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(255,200,130,${0.15 + glow * 0.15})`;
+      ctx.arc(p.x, p.y, r * 3, 0, Math.PI * 2); ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  };
+  draw();
+})();
+
+/* ============ PARTNERS CAROUSEL ============ */
+(() => {
+  const partners = [
+    { name: 'LATAM',  sub: 'Operador aéreo' },
+    { name: 'GOL',    sub: 'Operador aéreo' },
+    { name: 'AZUL',   sub: 'Operador aéreo' },
+    { name: 'JEM',    sub: 'Transportadora' },
+    { name: 'GLOBAL', sub: 'Transportadora' },
+    { name: 'OUTRAS', sub: 'Veículos pesados' }
+  ];
+  const track = document.getElementById('marqueeTrack');
+  /* margin-right no .partner garante que -50% = exatamente 1 set de 6 cards */
+  const html = partners.map(p => `
+    <div class="partner">
+      <span class="tag">parceiro</span>
+      <div class="partner__col">
+        <div>${p.name}</div>
+        <div class="sub">${p.sub}</div>
+      </div>
+    </div>`).join('');
+  track.innerHTML = html + html;
+})();
+</script>
+
+</body>
+</html>
