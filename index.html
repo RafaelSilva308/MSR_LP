@@ -542,6 +542,85 @@
     .number__l { font-size: 12px; }
   }
 
+  /* ============ PROCESS ============ */
+  .process { background: var(--ash); }
+  .process__head { max-width: 720px; margin-bottom: 56px; }
+  .process__steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; position: relative;
+  }
+  .process__connector {
+    position: absolute; top: 40px;
+    left: calc(12.5% + 8px); right: calc(12.5% + 8px);
+    height: 2px;
+    background: linear-gradient(90deg, var(--orange), var(--red));
+    opacity: 0.2; z-index: 0; pointer-events: none;
+  }
+  .process-step { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+  .process-step__num {
+    display: flex; align-items: center; justify-content: center;
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 28px;
+    margin: 0 auto 24px;
+    box-shadow: 0 12px 28px rgba(255,107,0,.3);
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+  }
+  .process-step:hover .process-step__num {
+    transform: scale(1.1);
+    box-shadow: 0 20px 40px rgba(255,107,0,.45);
+  }
+  .process-step h3 { font-size: 17px; margin-bottom: 12px; font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  .process-step p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+  @media (max-width: 860px) {
+    .process__steps { grid-template-columns: repeat(2, 1fr); }
+    .process__connector { display: none; }
+  }
+  @media (max-width: 480px) { .process__steps { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* ============ CERTIFICATIONS ============ */
+  .certs { background: var(--black); color: #fff; overflow: hidden; }
+  .certs::before {
+    content: ""; position: absolute; top: -180px; right: -180px;
+    width: 480px; height: 480px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,107,0,.12), transparent 70%);
+    pointer-events: none;
+  }
+  .certs__head { max-width: 720px; margin-bottom: 56px; }
+  .certs__head h2 { color: #fff; }
+  .certs__head .section-lead { color: rgba(255,255,255,.68); max-width: 100%; }
+  .certs__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cert-card {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+    border-radius: 16px; padding: 24px 22px;
+    display: flex; align-items: flex-start; gap: 16px;
+    transition: background .35s, border-color .35s, transform .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .cert-card:hover {
+    background: rgba(255,107,0,.07); border-color: rgba(255,107,0,.32);
+    transform: translateY(-4px);
+  }
+  .cert-card__icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(255,107,0,.12);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: var(--orange);
+    transition: background .35s;
+  }
+  .cert-card:hover .cert-card__icon { background: rgba(255,107,0,.22); }
+  .cert-card__icon svg { width: 20px; height: 20px; }
+  .cert-card__body { min-width: 0; }
+  .cert-card__body h3 {
+    font-size: 14.5px; font-weight: 700; color: #fff; margin-bottom: 8px;
+    font-family: 'Montserrat', sans-serif; line-height: 1.3;
+  }
+  .cert-card__body p { font-size: 12px; color: var(--orange); font-weight: 600; letter-spacing: 0.06em; }
+  @media (max-width: 900px) { .certs__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) {
+    .certs__grid { grid-template-columns: 1fr; gap: 12px; }
+    .cert-card { padding: 18px 16px; }
+  }
+
   /* ============ CTA FINAL ============ */
   .cta-final {
     background:
@@ -663,6 +742,7 @@
     <a href="#services">Serviços</a>
     <a href="#coverage">Cobertura</a>
     <a href="#partners">Parceiros</a>
+    <a href="#certifications">Certificações</a>
     <a href="#contact">Contato</a>
     <a href="#contact" class="nav__mobile-cta">Solicitar Orçamento</a>
   </div>
@@ -824,6 +904,46 @@
   </div>
 </section>
 
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="process__head reveal">
+      <span class="eyebrow">Como funciona</span>
+      <h2 class="section-title">Do início ao<br/>destino final.</h2>
+      <p class="section-lead">
+        Cada etapa monitorada e gerenciada para garantir a entrega no prazo e com segurança.
+      </p>
+    </div>
+    <div class="process__steps">
+      <div class="process__connector" aria-hidden="true"></div>
+
+      <div class="process-step reveal">
+        <div class="process-step__num">01</div>
+        <h3>Coleta do produto</h3>
+        <p>Recebemos a solicitação e coletamos o produto no horário programado.</p>
+      </div>
+
+      <div class="process-step reveal delay-1">
+        <div class="process-step__num">02</div>
+        <h3>Armazenamento temporário</h3>
+        <p>Armazenamos em ambiente controlado até o momento do transbordo.</p>
+      </div>
+
+      <div class="process-step reveal delay-2">
+        <div class="process-step__num">03</div>
+        <h3>Carga em trânsito</h3>
+        <p>Acompanhe sua carga durante todo o trajeto pelo número da nota fiscal.</p>
+      </div>
+
+      <div class="process-step reveal delay-3">
+        <div class="process-step__num">04</div>
+        <h3>Entrega da carga</h3>
+        <p>Um profissional qualificado entrega dentro do prazo e horário programado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ COVERAGE ============ -->
 <section class="coverage" id="coverage">
   <div class="container">
@@ -900,6 +1020,82 @@
         <div class="number__k">ANVISA</div>
         <div class="number__l">Autorização ativa</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<section class="certs" id="certifications">
+  <div class="container">
+    <div class="certs__head reveal">
+      <span class="eyebrow">Certificações e Registros</span>
+      <h2 class="section-title">Nossos registros<br/>e certificações.</h2>
+      <p class="section-lead">
+        Operamos com todas as autorizações exigidas pelos órgãos reguladores nacionais.
+      </p>
+    </div>
+    <div class="certs__grid">
+
+      <div class="cert-card reveal">
+        <div class="cert-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
+        </div>
+        <div class="cert-card__body">
+          <h3>Operador de Transporte Multimodal</h3>
+          <p>Registro ANTT — Nº 0757-0516</p>
+        </div>
+      </div>
+
+      <div class="cert-card reveal delay-1">
+        <div class="cert-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h2v-6l2-4h7l3 4h4v6h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+        </div>
+        <div class="cert-card__body">
+          <h3>Agência Nacional de Transportes Terrestres</h3>
+          <p>RNTRC — ANTT Nº 012465729</p>
+        </div>
+      </div>
+
+      <div class="cert-card reveal delay-2">
+        <div class="cert-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div class="cert-card__body">
+          <h3>Conselho Regional de Administração</h3>
+          <p>CRA-PA — Nº 5476</p>
+        </div>
+      </div>
+
+      <div class="cert-card reveal delay-1">
+        <div class="cert-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v4M14 2v4M5 8h14l-1 12H6L5 8Z"/><path d="M9 14h6M9 17h6"/></svg>
+        </div>
+        <div class="cert-card__body">
+          <h3>ANVISA — Medicamentos e Insumos Farmacêuticos</h3>
+          <p>AFE — Nº 1.16669.7</p>
+        </div>
+      </div>
+
+      <div class="cert-card reveal delay-2">
+        <div class="cert-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v4M14 2v4M5 8h14l-1 12H6L5 8Z"/><path d="M9 14h6M9 17h6"/></svg>
+        </div>
+        <div class="cert-card__body">
+          <h3>ANVISA — Produtos para Saúde (Correlatos)</h3>
+          <p>AFE — Nº 8.15247.0</p>
+        </div>
+      </div>
+
+      <div class="cert-card reveal delay-3">
+        <div class="cert-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v4M14 2v4M5 8h14l-1 12H6L5 8Z"/><path d="M9 14h6M9 17h6"/></svg>
+        </div>
+        <div class="cert-card__body">
+          <h3>ANVISA — Medicamentos Sujeitos a Controle Especial</h3>
+          <p>AE — Nº 1.16820.7 (Portaria 344/98)</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
